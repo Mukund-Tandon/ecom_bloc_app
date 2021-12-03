@@ -1,4 +1,7 @@
+import 'package:ecom_bloc_app/logic/bloc/items_list_logic/items_bloc.dart';
+import 'package:ecom_bloc_app/repos/items_repository.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 
 class HomeScreen extends StatefulWidget {
   const HomeScreen({ Key? key }) : super(key: key);
@@ -8,13 +11,20 @@ class HomeScreen extends StatefulWidget {
 }
 
 class _HomeScreenState extends State<HomeScreen> {
+  ItemsRepo itemsRepo = ItemsRepo();
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       body: Column(
         children: [
-          Container(
-            child: Image.asset('assets/images/dragonfruit.jpg'),
+          GestureDetector(
+            onTap: (){
+              BlocProvider.of<ItemsBloc>(context).add(GetItems());
+              Navigator.pushNamed(context, '/itemlist');
+            },
+            child: Container(
+              child: Image.asset('assets/images/dragonfruit.jpg'),
+            ),
           ),
           Expanded(
             child: Row(
